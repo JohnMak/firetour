@@ -1,0 +1,98 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading panel-heading-transparent">
+        <strong>Manage Panel</strong>
+    </div>
+
+    <div class="panel-body">
+        <div class="">
+            <div class="row">
+
+                <!-- tabs -->
+                <div class="col-md-3 col-sm-3">
+
+
+                    <div class=" fancy-form">
+                        <i class="fa fa-search"></i>
+
+                        <input type="text" class="form-control "
+                               placeholder="Filter" value="{{filter_string}}" on-keyup="filter_users(filter_string)" style="border:none;">
+
+                    </div>
+                    <ul class="nav nav-stacked nav-alternate">
+
+                        {{#data.users:i}}
+                            <li class="{{#if hide}}hidden{{/if}}">
+                                <a on-click="set_manage_user">
+                                    <a class="fa fa-trash margin-right-10" on-click="delete_user"></a>
+                                    {{username}}
+                                </a>
+                            </li>
+                        {{/data.users}}
+                    </ul>
+                    <div class="btn btn-success" on-click="add_user()">Add User</div>
+                </div>
+
+                <!-- tabs content -->
+                <div class="col-md-9 col-sm-9">
+                    <div class="tab-content tab-stacked nav-alternate">
+                            {{#if data.manage_user}}
+                            <div id="manage_{{_id}}" class="tab-pane active">
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        <input value="{{data.manage_user.username}}" on-change="update_user(data.manage_user._id, data.manage_user.username, data.manage_user.is_admin)">
+
+                                        is admin: <input type="checkbox" checked="{{data.manage_user.is_admin}}" on-change="update_user(data.manage_user._id, data.manage_user.username, data.manage_user.is_admin)">
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+
+                                        <Password user_id="{{data.manage_user._id}}"></Password>
+
+                                    </div>
+                                </div>
+
+                                <h3>Timezones:</h3>
+
+                                {{#data.manage_user.timezones:j}}
+                                <div class="clearfix">
+                                    <div class="col-xs-4">
+                                        <input value="{{title}}" placeholder="Title" on-change="update_user_timezone(_id, title, city, utc_offset, ../../_id)"/>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input value="{{city}}" placeholder="City" on-change="update_user_timezone(_id, title, city, utc_offset, ../../_id)"/>
+                                    </div>
+                                    <div class="col-xs-2">
+
+                                        <select style="height: auto" name="utc_offset" value="{{utc_offset}}" on-change="update_user_timezone(_id, title, city, utc_offset, ../../_id)">
+                                            {{#utc_offsets}}
+                                                <option value="{{.}}" {{#if utc_offset == .}}selected="selected" {{/if}}>
+                                                    GMT{{.}}:00
+                                                </option>
+                                            {{/utc_offsets}}
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-3 text-right">
+                                        <button class="btn btn-xs btn-default btn-quick" title="Remove"
+                                                on-click="remove_user_timezone(j, _id)"><i class="fa fa-times"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                                {{/data.manage_user.timezones}}
+                                <div>
+                                    <div class="btn btn-success" on-click="add_user_timezone()">Add Timezone</div>
+                                </div>
+                            </div>
+                            {{/if}}
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="panel-footer">
+    </div>
+</div>

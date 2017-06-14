@@ -1,0 +1,87 @@
+
+
+
+{{#if !is_authorised }}
+
+<div class="container padding-15 text-center" style="margin-top: 200px">
+    <div class="">
+        <h1 class="margin-bottom-0"><b>Огонь-Тур</b></h1>
+
+        <h3 class="margin-bottom-0">Горячие туры действительно доступны!</h3>
+    </div>
+
+    <div class="margin-top-30">
+
+        {{#offers}}
+            <h3 class="direction-title">    {{.direction.from}} ->
+                {{.direction.to}}</h3>
+
+            <div class="best-offer">
+                {{.bestOffer.hotel}}
+                ({{.bestOffer.nights}} ночи)
+                {{.bestOffer.details}}
+                {{.bestOffer.price}} руб.
+            </div>
+        {{/offers}}
+
+
+        <!-- login form -->
+
+        {{#if isSubscribed}}
+            Спасибо за подписку!
+        {{else}}
+            <form on-submit="rest_subscribe" method="post" class="sky-form boxed" style="margin-top: 100px">
+                <header>Подписаться на горячее обновление по СМС</header>
+
+                <fieldset>
+
+                    <section>
+                        <label class="label">Имя</label>
+                        <label class="input">
+                            <input type="text" name="name" id="authorise_input_username" required="required" value="{{data.input_name}}"/>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label">Телефон</label>
+                        <label class="input">
+                            <input type="text" name="phone" required="required" value="{{data.input_phone}}"/>
+                        </label>
+                    </section>
+
+                </fieldset>
+
+                <footer>
+                    <button type="submit" class="btn-subscribe btn">Подписаться</button>
+                </footer>
+            </form>
+        {{/if}}
+    </div>
+
+</div>
+
+{{/if}}
+{{#if is_authorised }}
+
+
+
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+            <div class="clearfix text-right margin-top-10 margin-bottom-10">
+
+
+                <div class="col-xs-6 text-left">
+                    <Password user_id="{{user._id}}"></Password>
+                </div>
+                <div class="col-xs-6 text-right">
+                    {{user.username}}
+                    <div class="btn btn-xs btn-default btn-quick float-right" on-click="rest_logout">Log Out</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{{/if}}

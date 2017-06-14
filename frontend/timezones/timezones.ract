@@ -1,0 +1,92 @@
+<div class="modal fade" id="modal_timezone">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit timezone</h4>
+            </div>
+            <div class="modal-body">
+                <form id="edit_timezone_form">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label>Title *</label>
+                                <input type="text" name="title" value="{{data.edit_tz.title}}" class="form-control required">
+                            </div>
+                            <div class="col-xs-12 margin-top-20">
+                                <label>City *</label>
+                                <input type="text" name="city" value="{{data.edit_tz.city}}" class="form-control required">
+                            </div>
+                            <div class="col-xs-12 margin-top-20">
+                                <label>UTC offset *</label>
+                                <select class="form-control required" name="utc_offset" value="{{data.edit_tz.utc_offset}}">
+                                    {{#utc_offsets}}
+                                        <option value="{{.}}" {{#if data.edit_tz.utc_offset == .}}selected="selected" {{/if}}>
+                                            GMT{{.}}:00
+                                        </option>
+                                    {{/utc_offsets}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" on-click="save_edit_timezone()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        <div class=" text-center">
+        <Clock data="{{data.current_time}}" size="2" utc_offset="{{data.current_utc_offset}}"></Clock>
+        </div>
+
+
+
+<div class="panel panel-default margin-top-30">
+    <div class="panel-heading panel-heading-transparent">
+        <div class=" fancy-form">
+            <i class="fa fa-search"></i>
+
+            <input type="text" class="form-control "
+                   placeholder="Filter" value="{{filter_string}}" on-keyup="filter_timezones(filter_string)" style="border:none;">
+
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="clearfix text-center">
+
+                {{#data.timezones:i}}
+                    <div class="col-xs-6 col-md-4 text-center timezone {{#if hide}}hidden{{/if}}">
+                        <div class="timezone_tools" style="position: absolute; top: 0; right: 0;">
+                            <button class="btn btn-xs btn-default btn-quick" title="Remove"
+                                    on-click="rest_remove_timezone(_id)"><i class="fa fa-times"></i>Remove
+                            </button>
+                            <br>
+                            <button class="btn btn-xs btn-default btn-quick" title="Edit"
+                                    on-click="open_edit_timezone(this)"><i class="fa fa-pencil"></i>Edit
+                            </button>
+                        </div>
+
+
+
+                        <Clock utc_offset="{{utc_offset}}" data="{}"></Clock>
+
+                        <h3 title="{{title}}">{{title}}</h3>
+                        <h4 title="{{city}}">{{city}}</h4>
+                    </div>
+                {{/data.timezones}}
+                <div class="col-xs-6 col-md-4 text-center timezone">
+                    <div class="new_timezone" on-click="open_edit_timezone()">
+                        +
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
