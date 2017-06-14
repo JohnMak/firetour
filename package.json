@@ -1,5 +1,5 @@
 {
-  "name": "chronez",
+  "name": "firetour",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -32,11 +32,13 @@
     "mocha": "^2.3.3",
     "mongoose": "^4.2.2",
     "morgan": "~1.6.1",
+    "nodemailer": "^4.0.1",
     "passport": "^0.3.0",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
     "ractivate": "^0.2.0",
     "ractive": "^0.7.3",
+    "request": "^2.81.0",
     "serve-favicon": "~2.3.0",
     "should": "^7.1.1",
     "superagent": "^1.4.0",
