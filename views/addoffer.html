@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+    <div id="container">
+    <form method="post" action="/api/offer">
+        <input name="hotel" type="text" placeholder="Отель"/>
+        <input name="description" type="text" placeholder="Описание"/>
+        <input name="nights" type="number" placeholder="Ночи"/>
+        <input name="price" type="number" placeholder="Цена"/>
+        <input name="link" type="text" placeholder="Ссылка"/>
+        <select id="direction" name="direction"></select>
+
+        <button  type="submit">Добавить</button>
+    </form>
+    </div>
+
+    <script>
+        $.ajax({
+            method: 'get',
+            url: '/api/direction/',
+            success: function (res) {
+                console.log(res);
+                var html = '';
+
+                res.map(function(item) {
+                    html += `<option value="${item._id}">${item.to} из ${item.from}</option>`;
+                });
+
+                $("#direction").html(html)
+            }
+        })
+
+        $('form').submit(function(e){
+            $.post('/api/offer', $('form').serialize());
+
+            $('#container').html('Добавлено');
+            e.preventDefault();
+        })
+    </script>
+</body>
+</html>

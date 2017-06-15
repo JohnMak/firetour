@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+    <div id="container">
+
+    </div>
+
+    <script>
+        $.ajax({
+            method: 'get',
+            url: '/api/subscription/',
+            success: function (res) {
+                console.log(res);
+                var html = '';
+
+                res.map(function(item) {
+                    html += `<div>${item.name} - ${item.phone} - ${item.isActive} <button class="approve" id="${item._id}" is-active="${item.isActive}">Подтвердить</button><button class="delete" id="${item._id}">Удалить</button></div>`;
+                });
+
+                $("#container").html(html)
+            }
+        });
+
+        $(document.body).on('click', '.delete', function(e){
+            $.ajax({
+                url: '/api/subscription/'+$(e.target).attr('id'),
+                method: 'delete',
+                success: function () {
+                    location.reload();
+                }
+            })
+        });
+
+        $(document.body).on('click', '.approve', function(e){
+            $.ajax({
+                url: '/api/subscription/'+$(e.target).attr('id'),
+                method: 'put',
+                data: {
+                  isActive: $(e.target).attr('is-active') === 'true' ? false : true,
+                },
+                success: function () {
+                    location.reload();
+                }
+            })
+        });
+    </script>
+</body>
+</html>

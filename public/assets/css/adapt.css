@@ -149,6 +149,7 @@ body.loading #main {
 }
 
 .best-offer {
+    display: block;
     color: #333;
     font-weight: 600;
     font-size: 20px;

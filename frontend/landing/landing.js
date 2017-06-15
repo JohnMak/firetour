@@ -3,6 +3,7 @@ var ErrorLog = require('../ErrorLog.js');
 
 
 
+
 var landing = Ract.extend({
     template: require("./landing.ract"),
     components: {
@@ -17,6 +18,12 @@ var landing = Ract.extend({
                 url: "/api/offer/best",
                 data: $(this.find("form")).serialize(),
                 success: function(offers) {
+                    for (var i in offers) {
+                        console.log(offers[i].bestOffer.created)
+                        offers[i].bestOffer.created = moment(offers[i].bestOffer.created).format('HH:mm');
+                    }
+                    console.log(offers);
+
                     self.set("offers", offers);
                 }
             })
@@ -59,9 +66,11 @@ var landing = Ract.extend({
         this.set('data.input_password', '');
         this.set('data.input_confirm_password', '');
     },
-    data: {
-        offers: [],
-        isSubscribed: false,
+    data: function () {
+        return {
+            offers: [],
+            isSubscribed: false
+        }
     }
 });
 

@@ -13,15 +13,18 @@
     <div class="margin-top-30">
 
         {{#offers}}
-            <h3 class="direction-title">    {{.direction.from}} ->
-                {{.direction.to}}</h3>
+            <h3 class="direction-title">    {{.direction.to}} из {{.direction.from}}
+                </h3>
 
-            <div class="best-offer">
+            <a class="best-offer" href="{{.bestOffer.link}}">
+                {{.bestOffer.created}}
+                –
                 {{.bestOffer.hotel}}
                 ({{.bestOffer.nights}} ночи)
                 {{.bestOffer.details}}
-                {{.bestOffer.price}} руб.
-            </div>
+                –
+                {{.bestOffer.price}} руб. на 1 чел.
+            </a>
         {{/offers}}
 
 

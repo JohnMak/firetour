@@ -18,6 +18,14 @@ var OfferSchema = new mongoose.Schema({
         type: Number,
         default: false
     },
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    link: {
+        type: String,
+        required: true
+    },
     direction: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Direction'
