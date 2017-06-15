@@ -19,8 +19,9 @@ var landing = Ract.extend({
                 data: $(this.find("form")).serialize(),
                 success: function(offers) {
                     for (var i in offers) {
-                        console.log(offers[i].bestOffer.created)
-                        offers[i].bestOffer.created = moment(offers[i].bestOffer.created).format('HH:mm');
+                        if (offers[i].bestOffer && offers[i].bestOffer.created) {
+                            offers[i].bestOffer.created = moment(offers[i].bestOffer.created).format('HH:mm');
+                        }
                     }
                     console.log(offers);
 
